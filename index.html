@@ -303,12 +303,7 @@ input[type="email"]::placeholder { color:var(--text-soft); }
   <div class="success-icon">✓</div>
   <h2>Réponse enregistrée !</h2>
   <p>Vos réponses ont été transmises avec succès. Merci pour votre participation à l'Audit Genre METE.</p>
-  <div class="score-result" id="finalScore">
-    <div class="big" id="finalNum">—</div>
-    <div class="label">points sur 90</div>
-    <div class="level" id="finalLevel">—</div>
-  </div>
-  <button class="new-response-btn" onclick="newResponse()">Nouvelle réponse</button>
+ 
 </div>
 
 <!-- BARRE DE NAVIGATION FIXE EN BAS -->
@@ -331,13 +326,13 @@ const SOUS_SERVICES = {
   'Cabinet': ['Inspection interne','Comité national CILSS','Comité national Changement Climatique','Commission nationale du Développement durable','Commission nationale de Gestion des Produits Chimiques','Cellule des statistiques et données',"Cellule d'information et de communication"],
   'Secrétariat Général': ['Cellule des Affaires juridiques','Cellule de Passation des Marchés','Cellule Genre et Equité','Cellule informatique','Bureau du Courrier Commun','Bureau des Archives et de la Documentation'],
   'Directions': ['Direction des Eaux et Forêts, Chasses et de la Conservation des Sols (DEFCCS)','Direction des Parcs nationaux (DPN)','Direction de la Réglementation environnementale et du Contrôle (DiREC)','Direction du Changement climatique, de la Transition écologique et des Financements verts (DCCTEFV)','Direction de la Planification et de la Veille environnementale (DPVE)','Direction des Aires marines communautaires protégées (DAMCP)',"Direction de l'Administration générale et de l'Equipement (DAGE)",'Direction générale du Cadre de Vie (DGCV)'],
-  'Autres administrations': ['Centre national de Formation des Techniciens des Eaux et Forêts, Chasses et Parcs nationaux (CNFTEFCPN)','Centre de Suivi écologique (CSE)',"Centre d'Education et de Formation environnementales (CEFE)",'Agence sénégalaise de la Reforestation et de la Grande Muraille verte (ASERGMV)','Autorité Nationale de Biosécurité (ANB)','Société Nationale de Gestion Intégrée des Déchets (SONAGED)',"Projet de Promotion de la Gestion intégrée et de l'Économie des Déchets Solides (PROMOGED)",'Comité permanent Inter-États de Lutte contre la Sécheresse dans le Sahel (CONACILSS)']
+  'Autres': ['Centre national de Formation des Techniciens des Eaux et Forêts, Chasses et Parcs nationaux (CNFTEFCPN)','Centre de Suivi écologique (CSE)',"Centre d'Education et de Formation environnementales (CEFE)",'Agence sénégalaise de la Reforestation et de la Grande Muraille verte (ASERGMV)','Autorité Nationale de Biosécurité (ANB)','Société Nationale de Gestion Intégrée des Déchets (SONAGED)',"Projet de Promotion de la Gestion intégrée et de l'Économie des Déchets Solides (PROMOGED)",'Comité permanent Inter-États de Lutte contre la Sécheresse dans le Sahel (CONACILSS)']
 };
 const SOUS_SERVICE_LABELS = {
   'Cabinet':'Cellule / Comité / Commission',
   'Secrétariat Général':'Cellule / Bureau',
   'Directions':'Direction',
-  'Autres administrations':'Structure / Centre / Agence'
+  'Autres':'Structure / Centre / Agence'
 };
 
 function updateSousService() {
@@ -629,22 +624,22 @@ async function handleSubmit() {
   }
 }
 
-function newResponse() {
-  answers.fill(null);
-  document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.q-card').forEach(c => c.classList.remove('answered'));
-  ['f_sexe','f_age','f_statut','f_service','f_zone','f_anc'].forEach(id => {
-    document.getElementById(id).selectedIndex = 0;
-  });
-  document.getElementById('f_email').value = '';
-  document.getElementById('f_sous_service').innerHTML = '<option value="">— Sélectionner —</option>';
-  document.getElementById('subservice-group').classList.remove('visible');
-  document.getElementById('msgError').style.display = 'none';
-  document.getElementById('successScreen').style.display = 'none';
-  document.getElementById('mainForm').style.display = 'block';
-  document.getElementById('navBar').style.display = 'flex';
-  showSection(0);
-}
+// function newResponse() {
+//   answers.fill(null);
+//   document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+//   document.querySelectorAll('.q-card').forEach(c => c.classList.remove('answered'));
+//   ['f_sexe','f_age','f_statut','f_service','f_zone','f_anc'].forEach(id => {
+//     document.getElementById(id).selectedIndex = 0;
+//   });
+//   document.getElementById('f_email').value = '';
+//   document.getElementById('f_sous_service').innerHTML = '<option value="">— Sélectionner —</option>';
+//   document.getElementById('subservice-group').classList.remove('visible');
+//   document.getElementById('msgError').style.display = 'none';
+//   document.getElementById('successScreen').style.display = 'none';
+//   document.getElementById('mainForm').style.display = 'block';
+//   document.getElementById('navBar').style.display = 'flex';
+//   showSection(0);
+// }
 
 buildQuestions();
 showSection(0);
