@@ -568,11 +568,42 @@ function collectData() {
 }
 
 async function sendToSheets(data) {
-  const params = new URLSearchParams({ data: JSON.stringify(data) });
-  await fetch(SCRIPT_URL, {
-    method: 'POST', mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
+  return new Promise((resolve) => {
+    // Créer un iframe caché pour absorber la réponse (évite la navigation)
+    const iframe = document.createElement('iframe');
+    iframe.name = 'hidden_iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    // Créer un formulaire caché
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SCRIPT_URL;
+    form.target = 'hidden_iframe'; // envoyer dans l'iframe, pas la page
+
+    // Ajouter le champ data
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'data';
+    input.value = JSON.stringify(data);
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+
+    // Attendre que l'iframe charge (= réponse reçue)
+    iframe.onload = () => {
+      document.body.removeChild(form);
+      document.body.removeChild(iframe);
+      resolve();
+    };
+
+    // Timeout de sécurité
+    setTimeout(() => {
+      try { document.body.removeChild(form); document.body.removeChild(iframe); } catch(e) {}
+      resolve();
+    }, 8000);
+
+    form.submit();
   });
 }
 
