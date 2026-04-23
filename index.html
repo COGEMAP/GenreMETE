@@ -569,19 +569,16 @@ function collectData() {
 
 async function sendToSheets(data) {
   return new Promise((resolve) => {
-    // Créer un iframe caché pour absorber la réponse (évite la navigation)
     const iframe = document.createElement('iframe');
     iframe.name = 'hidden_iframe';
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
 
-    // Créer un formulaire caché
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = SCRIPT_URL;
-    form.target = 'hidden_iframe'; // envoyer dans l'iframe, pas la page
+    form.target = 'hidden_iframe';
 
-    // Ajouter le champ data
     const input = document.createElement('input');
     input.type = 'hidden';
     input.name = 'data';
@@ -590,16 +587,15 @@ async function sendToSheets(data) {
 
     document.body.appendChild(form);
 
-    // Attendre que l'iframe charge (= réponse reçue)
     iframe.onload = () => {
-      document.body.removeChild(form);
-      document.body.removeChild(iframe);
+      try { document.body.removeChild(form); } catch(e) {}
+      try { document.body.removeChild(iframe); } catch(e) {}
       resolve();
     };
 
-    // Timeout de sécurité
     setTimeout(() => {
-      try { document.body.removeChild(form); document.body.removeChild(iframe); } catch(e) {}
+      try { document.body.removeChild(form); } catch(e) {}
+      try { document.body.removeChild(iframe); } catch(e) {}
       resolve();
     }, 8000);
 
@@ -636,6 +632,9 @@ async function handleSubmit() {
   spinner.style.display = 'block';
 
   const data = collectData();
+  console.log('EMAIL ENVOYÉ :', data.email); // ← ajout
+  console.log('TOUTES LES DONNÉES :', JSON.stringify(data)); // optionnel mais utile
+
 
   try {
     await sendToSheets(data);
