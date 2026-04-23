@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Audit Genre METE — Sensibilité Genre</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">  
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 :root {
   --green: #1a6b4a;
@@ -21,92 +21,158 @@
   --shadow: 0 2px 16px rgba(26,107,74,0.08);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body { font-family: 'Sora', sans-serif; background: var(--surface); color: var(--text); min-height: 100vh; }
 
+/* ── HEADER ── */
 .header {
-  background: var(--green); padding: 2rem 1.5rem; text-align: center;
+  background: var(--green); padding: 1.5rem 1rem; text-align: center;
   position: relative; overflow: hidden;
 }
 .header::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; background:rgba(255,255,255,0.05); border-radius:50%; }
 .header::after  { content:''; position:absolute; bottom:-40px; left:-40px; width:140px; height:140px; background:rgba(255,255,255,0.04); border-radius:50%; }
-.header-badge { display:inline-block; background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.9); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:12px; font-weight:500; }
-.header h1 { font-family:'DM Serif Display',serif; font-size:clamp(1.4rem,4vw,2rem); color:#fff; font-weight:400; line-height:1.3; margin-bottom:8px; position:relative; }
-.header p { color:rgba(255,255,255,0.75); font-size:13px; max-width:520px; margin:0 auto; line-height:1.6; position:relative; }
-.header-sheets-link { margin-top:12px; position:relative; }
-.header-sheets-link a { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.9); font-size:12px; font-weight:500; padding:5px 14px; border-radius:20px; text-decoration:none; transition:background 0.2s; }
-.header-sheets-link a:hover { background:rgba(255,255,255,0.25); }
-.header-sheets-link svg { width:14px; height:14px; fill:currentColor; }
+.header-badge { display:inline-block; background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.9); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:10px; font-weight:500; }
+.header h1 { font-family:'DM Serif Display',serif; font-size:clamp(1.2rem,4vw,1.8rem); color:#fff; font-weight:400; line-height:1.3; margin-bottom:6px; position:relative; }
+.header p { color:rgba(255,255,255,0.75); font-size:12px; max-width:520px; margin:0 auto; line-height:1.6; position:relative; }
 
-.status-bar { background:var(--white); border-bottom:1px solid var(--border); padding:0.9rem 1.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-.status-score { display:flex; align-items:baseline; gap:6px; }
-.score-num { font-size:22px; font-weight:600; color:var(--green); }
-.score-denom { font-size:13px; color:var(--text-soft); }
-.status-progress { flex:1; min-width:120px; max-width:240px; }
-.progress-label { font-size:11px; color:var(--text-soft); margin-bottom:4px; }
-.progress-track { background:var(--border); border-radius:6px; height:6px; overflow:hidden; }
+/* ── STATUS BAR ── */
+.status-bar {
+  background:var(--white); border-bottom:1px solid var(--border); padding:0.7rem 1rem;
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.status-progress { flex:1; min-width:100px; }
+.progress-label { font-size:11px; color:var(--text-soft); margin-bottom:3px; }
+.progress-track { background:var(--border); border-radius:6px; height:5px; overflow:hidden; }
 .progress-fill { height:100%; background:linear-gradient(90deg,var(--green-mid),var(--green)); border-radius:6px; transition:width 0.4s ease; }
-.level-pill { font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; white-space:nowrap; }
+.status-right { display:flex; align-items:center; gap:8px; }
+.step-indicator { font-size:11px; color:var(--text-soft); white-space:nowrap; }
+.level-pill { font-size:10px; font-weight:600; padding:3px 10px; border-radius:20px; white-space:nowrap; }
 .level-0 { background:#fdecea; color:#c0392b; }
 .level-1 { background:#fff3cd; color:#856404; }
 .level-2 { background:#d4edda; color:#1a6b4a; }
 .level-3 { background:#c3e6cb; color:#0f4c30; }
 
-.main { max-width:720px; margin:0 auto; padding:1.5rem 1rem 3rem; }
+/* ── LAYOUT ── */
+.main { max-width:680px; margin:0 auto; padding:1rem 0.75rem 6rem; }
 
-.card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem 1.5rem; margin-bottom:1rem; box-shadow:var(--shadow); }
-.card-title { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--green); margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
+/* ── SECTION TABS (étapes) ── */
+.section-tabs { display:flex; gap:4px; margin-bottom:1rem; overflow-x:auto; padding-bottom:2px; scrollbar-width:none; }
+.section-tabs::-webkit-scrollbar { display:none; }
+.tab-btn {
+  flex-shrink:0; padding:6px 12px; border:1px solid var(--border); border-radius:20px;
+  font-family:'Sora',sans-serif; font-size:11px; font-weight:500; color:var(--text-soft);
+  background:var(--white); cursor:pointer; transition:all 0.15s; white-space:nowrap;
+}
+.tab-btn.active { background:var(--green); color:#fff; border-color:var(--green); }
+.tab-btn.done { background:var(--green-light); color:var(--green); border-color:#a8d5bc; }
+
+/* ── CARDS ── */
+.card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:1.1rem 1.1rem; margin-bottom:0.75rem; box-shadow:var(--shadow); }
+.card-title { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--green); margin-bottom:0.9rem; display:flex; align-items:center; gap:8px; }
 .card-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
-.fields-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px; }
+/* ── FIELDS ── */
+.fields-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media (max-width:380px) { .fields-grid { grid-template-columns:1fr; } }
 .field-group { display:flex; flex-direction:column; gap:4px; }
+.field-group.full { grid-column:1 / -1; }
 .field-group label { font-size:11px; color:var(--text-soft); font-weight:500; }
-select { width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:8px; font-family:'Sora',sans-serif; font-size:13px; color:var(--text); background:var(--white); appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a9485' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; cursor:pointer; transition:border-color 0.2s; }
-select:focus { outline:none; border-color:var(--green-mid); }
+select, input[type="email"] {
+  width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px;
+  font-family:'Sora',sans-serif; font-size:13px; color:var(--text); background:var(--white);
+  transition:border-color 0.2s; -webkit-appearance:none;
+}
+select {
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a9485' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 10px center;
+  padding-right:28px; cursor:pointer;
+}
+select:focus, input[type="email"]:focus { outline:none; border-color:var(--green-mid); }
+input[type="email"]::placeholder { color:var(--text-soft); }
 
 .subservice-group { grid-column:1 / -1; display:none; flex-direction:column; gap:4px; }
 .subservice-group.visible { display:flex; }
 
-.q-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:1.1rem 1.25rem; margin-bottom:10px; transition:border-color 0.2s, box-shadow 0.2s; }
-.q-card.answered { border-color:#a8d5bc; }
-.q-card:hover { box-shadow:var(--shadow); }
-.q-header { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
-.q-num { background:var(--green-light); color:var(--green); font-size:10px; font-weight:600; padding:3px 7px; border-radius:6px; white-space:nowrap; margin-top:1px; flex-shrink:0; }
-.q-text { font-size:13.5px; line-height:1.55; color:var(--text); }
+/* ── SECTION DE QUESTIONS ── */
+.section-block { display:none; }
+.section-block.active { display:block; }
+.section-header { display:flex; align-items:center; gap:8px; margin-bottom:1rem; }
+.section-title { font-size:13px; font-weight:600; color:var(--green); }
+.section-count { font-size:11px; color:var(--text-soft); }
 
-.q-options { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
-@media (max-width:480px) { .q-options { grid-template-columns:repeat(2,1fr); } }
-.opt-btn { border:1px solid var(--border); border-radius:8px; padding:10px 6px; text-align:center; cursor:pointer; background:var(--surface); transition:all 0.15s; user-select:none; display:flex; align-items:center; justify-content:center; min-height:44px; }
+/* ── QUESTION CARD ── */
+.q-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1rem; margin-bottom:8px; transition:border-color 0.2s; }
+.q-card.answered { border-color:#a8d5bc; }
+.q-header { display:flex; align-items:flex-start; gap:8px; margin-bottom:10px; }
+.q-num { background:var(--green-light); color:var(--green); font-size:10px; font-weight:600; padding:3px 7px; border-radius:6px; white-space:nowrap; margin-top:1px; flex-shrink:0; }
+.q-text { font-size:13px; line-height:1.55; color:var(--text); }
+
+/* ── OPTIONS VERTICAL sur mobile ── */
+.q-options { display:flex; flex-direction:column; gap:6px; }
+.opt-btn {
+  border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+  cursor:pointer; background:var(--surface); transition:all 0.15s;
+  user-select:none; display:flex; align-items:center; gap:10px; min-height:44px;
+}
 .opt-btn:hover { background:var(--green-light); border-color:var(--green-mid); }
 .opt-btn.selected { background:var(--green-light); border-color:var(--green); box-shadow:0 0 0 2px rgba(26,107,74,0.15); }
-.opt-label { font-size:11px; color:var(--text-mid); line-height:1.3; text-align:center; }
+.opt-dot { width:16px; height:16px; border-radius:50%; border:1.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+.opt-btn.selected .opt-dot { background:var(--green); border-color:var(--green); }
+.opt-btn.selected .opt-dot::after { content:''; width:6px; height:6px; background:#fff; border-radius:50%; display:block; }
+.opt-label { font-size:12px; color:var(--text-mid); line-height:1.3; }
 .opt-btn.selected .opt-label { color:var(--green); font-weight:600; }
 
-.submit-zone { margin-top:1.5rem; }
-.submit-btn { width:100%; padding:14px; background:var(--green); color:#fff; border:none; border-radius:var(--radius); font-family:'Sora',sans-serif; font-size:15px; font-weight:600; cursor:pointer; transition:background 0.2s,transform 0.1s; display:flex; align-items:center; justify-content:center; gap:10px; }
-.submit-btn:hover { background:var(--green-mid); }
-.submit-btn:active { transform:scale(0.99); }
-.submit-btn:disabled { background:var(--text-soft); cursor:not-allowed; }
-.reset-btn { width:100%; margin-top:8px; padding:10px; background:transparent; color:var(--text-soft); border:1px solid var(--border); border-radius:var(--radius); font-family:'Sora',sans-serif; font-size:13px; cursor:pointer; transition:all 0.15s; }
-.reset-btn:hover { background:var(--surface); color:var(--text); }
-.msg { display:none; padding:12px 16px; border-radius:8px; font-size:13px; margin-top:10px; line-height:1.5; }
-.msg-error { background:#fdecea; color:var(--red-soft); border:1px solid #f5c6cb; }
+/* ── NAVIGATION BAS ── */
+.nav-bar {
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
+  background:var(--white); border-top:1px solid var(--border);
+  padding:0.75rem 1rem; display:flex; gap:8px; align-items:center;
+  max-width:680px; margin:0 auto; left:50%; transform:translateX(-50%);
+  box-shadow:0 -4px 16px rgba(0,0,0,0.06);
+}
+@media (max-width:680px) { .nav-bar { left:0; transform:none; max-width:100%; } }
+.nav-prev, .nav-next, .nav-submit {
+  border:none; border-radius:var(--radius); font-family:'Sora',sans-serif;
+  font-size:14px; font-weight:600; cursor:pointer; transition:all 0.15s;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:12px 0; min-height:48px;
+}
+.nav-prev { background:var(--surface); color:var(--text-mid); border:1px solid var(--border); width:48px; flex-shrink:0; font-size:18px; }
+.nav-prev:hover { background:var(--green-light); }
+.nav-next { background:var(--green); color:#fff; flex:1; }
+.nav-next:hover { background:var(--green-mid); }
+.nav-submit { background:var(--green); color:#fff; flex:1; }
+.nav-submit:hover { background:var(--green-mid); }
+.nav-submit:disabled { background:var(--text-soft); cursor:not-allowed; }
 
-.spinner { width:18px; height:18px; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
+.section-dots { display:flex; gap:5px; align-items:center; flex-shrink:0; }
+.dot { width:7px; height:7px; border-radius:50%; background:var(--border); cursor:pointer; transition:all 0.15s; }
+.dot.done { background:var(--green-mid); }
+.dot.active { background:var(--green); width:14px; border-radius:4px; }
+
+/* ── MESSAGES ── */
+.msg { display:none; padding:10px 14px; border-radius:8px; font-size:12px; margin-bottom:10px; line-height:1.5; }
+.msg-error { background:#fdecea; color:var(--red-soft); border:1px solid #f5c6cb; }
+.msg-section-error { background:#fdecea; color:var(--red-soft); border:1px solid #f5c6cb; padding:8px 12px; border-radius:8px; font-size:12px; margin-bottom:8px; display:none; }
+
+/* ── SPINNER ── */
+.spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
+/* ── SUCCESS ── */
 .success-screen { display:none; text-align:center; padding:3rem 1rem; }
 .success-icon { width:64px; height:64px; background:var(--green-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; font-size:28px; }
-.success-screen h2 { font-family:'DM Serif Display',serif; font-size:1.5rem; font-weight:400; color:var(--text); margin-bottom:8px; }
+.success-screen h2 { font-family:'DM Serif Display',serif; font-size:1.4rem; font-weight:400; color:var(--text); margin-bottom:8px; }
 .success-screen p { font-size:13px; color:var(--text-mid); line-height:1.6; max-width:340px; margin:0 auto 1.5rem; }
-.score-result { background:var(--green); color:#fff; border-radius:var(--radius); padding:1.5rem; margin:1.5rem auto; max-width:320px; }
+.score-result { background:var(--green); color:#fff; border-radius:var(--radius); padding:1.5rem; margin:1.5rem auto; max-width:300px; }
 .score-result .big { font-size:3rem; font-weight:600; line-height:1; }
 .score-result .label { font-size:12px; opacity:0.8; margin-top:4px; }
-.score-result .level { font-size:13px; margin-top:12px; background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:20px; display:inline-block; }
+.score-result .level { font-size:12px; margin-top:12px; background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:20px; display:inline-block; }
 .new-response-btn { padding:12px 28px; background:var(--green); color:#fff; border:none; border-radius:var(--radius); font-family:'Sora',sans-serif; font-size:14px; font-weight:600; cursor:pointer; }
-.new-response-btn:hover { background:var(--green-mid); }
-.success-sheets-btn { display:inline-flex; align-items:center; gap:8px; margin-top:12px; padding:10px 20px; background:transparent; color:var(--green); border:1px solid var(--border); border-radius:var(--radius); font-family:'Sora',sans-serif; font-size:13px; font-weight:500; cursor:pointer; text-decoration:none; }
-.success-sheets-btn:hover { background:var(--green-light); }
-.footer { text-align:center; font-size:11px; color:var(--text-soft); padding:2rem 1rem; }
+
+.footer { text-align:center; font-size:11px; color:var(--text-soft); padding:1.5rem 1rem 5rem; }
 </style>
 </head>
 <body>
@@ -115,7 +181,6 @@ select:focus { outline:none; border-color:var(--green-mid); }
   <div class="header-badge">Audit Genre · METE · Sénégal</div>
   <h1>Mesurer le niveau de sensibilité et de perception genre</h1>
   <p>Répondez à chaque affirmation. Les réponses sont confidentielles et anonymes.</p>
-  
 </div>
 
 <div class="status-bar">
@@ -123,164 +188,156 @@ select:focus { outline:none; border-color:var(--green-mid); }
     <div class="progress-label"><span id="answeredCount">0</span> / 30 réponses complétées</div>
     <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
+  <div class="status-right">
+    <span class="step-indicator" id="stepLabel">Étape 1 / 6</span>
+  </div>
 </div>
 
 <div class="main" id="mainForm">
 
-  <div class="card">
-    <div class="card-title">Informations du répondant</div>
-    <div class="fields-grid">
-
-      <div class="field-group">
-        <label>Sexe</label>
-        <select id="f_sexe">
-          <option value="">— Sélectionner —</option>
-          <option>Homme</option>
-          <option>Femme</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label>Âge</label>
-        <select id="f_age">
-          <option value="">— Sélectionner —</option>
-          <option>Moins de 35 ans</option>
-          <option>35 ans et plus</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label>Statut</label>
-        <select id="f_statut">
-          <option value="">— Sélectionner —</option>
-          <option>Cadre</option>
-          <option>Technicien</option>
-          <option>Agent de maîtrise</option>
-          <option>Personnel d'Appui</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label>Service / Entité principale</label>
-        <select id="f_service" onchange="updateSousService()">
-          <option value="">— Sélectionner —</option>
-          <option value="Cabinet">Cabinet</option>
-          <option value="Secrétariat Général">Secrétariat Général</option>
-          <option value="Directions">Directions</option>
-          <option value="Autres administrations">Autres administrations</option>
-        </select>
-      </div>
-
-      <div class="field-group subservice-group" id="subservice-group">
-        <label id="subservice-label">Structure / Cellule</label>
-        <select id="f_sous_service">
-          <option value="">— Sélectionner —</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label>Lieu d'intervention</label>
-        <select id="f_zone">
-          <option value="">— Sélectionner —</option>
-          <option>Dakar</option><option>Thiès</option><option>Diourbel</option>
-          <option>Fatick</option><option>Kaolack</option><option>Kaffrine</option>
-          <option>Tambacounda</option><option>Kolda</option><option>Sédhiou</option>
-          <option>Ziguinchor</option><option>Saint-Louis</option><option>Matam</option>
-          <option>Louga</option><option>Kédougou</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label>Ancienneté</label>
-        <select id="f_anc">
-          <option value="">— Sélectionner —</option>
-          <option>Nouveau (moins d'1 an)</option>
-          <option>2 à 5 ans</option>
-          <option>5 à 10 ans</option>
-          <option>Plus de 10 ans</option>
-        </select>
-      </div>
-
-    </div>
+  <!-- TABS DE NAVIGATION -->
+  <div class="section-tabs" id="sectionTabs">
+    <button class="tab-btn active" onclick="goToSection(0)">Profil</button>
+    <button class="tab-btn" onclick="goToSection(1)">Q 1–5</button>
+    <button class="tab-btn" onclick="goToSection(2)">Q 6–12</button>
+    <button class="tab-btn" onclick="goToSection(3)">Q 13–20</button>
+    <button class="tab-btn" onclick="goToSection(4)">Q 21–25</button>
+    <button class="tab-btn" onclick="goToSection(5)">Q 26–30</button>
   </div>
 
+  <!-- ══════════════ SECTION 0 : PROFIL ══════════════ -->
+  <div class="section-block active" id="sec0">
+    <div class="card">
+      <div class="card-title">Informations du répondant</div>
+      <div class="fields-grid">
+
+        <div class="field-group">
+          <label>Sexe</label>
+          <select id="f_sexe">
+            <option value="">— Sélectionner —</option>
+            <option>Homme</option>
+            <option>Femme</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Âge</label>
+          <select id="f_age">
+            <option value="">— Sélectionner —</option>
+            <option>Moins de 35 ans</option>
+            <option>35 ans et plus</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Statut</label>
+          <select id="f_statut">
+            <option value="">— Sélectionner —</option>
+            <option>Cadre</option>
+            <option>Technicien</option>
+            <option>Agent de maîtrise</option>
+            <option>Personnel d'Appui</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Ancienneté</label>
+          <select id="f_anc">
+            <option value="">— Sélectionner —</option>
+            <option>Nouveau (moins d'1 an)</option>
+            <option>2 à 5 ans</option>
+            <option>5 à 10 ans</option>
+            <option>Plus de 10 ans</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Service / Entité principale</label>
+          <select id="f_service" onchange="updateSousService()">
+            <option value="">— Sélectionner —</option>
+            <option value="Cabinet">Cabinet</option>
+            <option value="Secrétariat Général">Secrétariat Général</option>
+            <option value="Directions">Directions</option>
+            <option value="Autres administrations">Autres administrations</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Lieu d'affectation</label>
+          <select id="f_zone">
+            <option value="">— Sélectionner —</option>
+            <option>Dakar</option><option>Thiès</option><option>Diourbel</option>
+            <option>Fatick</option><option>Kaolack</option><option>Kaffrine</option>
+            <option>Tambacounda</option><option>Kolda</option><option>Sédhiou</option>
+            <option>Ziguinchor</option><option>Saint-Louis</option><option>Matam</option>
+            <option>Louga</option><option>Kédougou</option>
+          </select>
+        </div>
+
+        <div class="field-group subservice-group" id="subservice-group">
+          <label id="subservice-label">Structure / Cellule</label>
+          <select id="f_sous_service">
+            <option value="">— Sélectionner —</option>
+          </select>
+        </div>
+
+        <div class="field-group full">
+          <label>Adresse e-mail <span style="color:var(--text-soft);font-weight:400;">(optionnel)</span></label>
+          <input type="email" id="f_email" placeholder="exemple@ministere.sn" autocomplete="email" inputmode="email">
+        </div>
+
+      </div>
+    </div>
+    <div class="msg-section-error" id="errSec0">Veuillez remplir les champs obligatoires (Sexe, Statut, Service, Lieu d'affectation).</div>
+  </div>
+
+  <!-- ══════════════ SECTIONS QUESTIONS (1–5) ══════════════ -->
   <div id="questionsContainer"></div>
 
-  <div class="submit-zone">
-    <div class="msg msg-error" id="msgError"></div>
-    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
-      <span id="btnText">Soumettre mes réponses</span>
-      <div class="spinner" id="spinner"></div>
-    </button>
-    <button class="reset-btn" onclick="resetForm()">Réinitialiser le formulaire</button>
-  </div>
-</div>
+  <div class="msg msg-error" id="msgError"></div>
 
+</div><!-- /main -->
+
+<!-- SUCCESS -->
 <div class="main success-screen" id="successScreen">
   <div class="success-icon">✓</div>
   <h2>Réponse enregistrée !</h2>
-  <p>Vos réponses ont été transmises à Google Sheets avec succès. Merci pour votre participation.</p>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:1.5rem;">
-    <button class="new-response-btn" onclick="newResponse()">Nouvelle réponse</button>
-    <!-- ✅ Remplacez VOTRE_LIEN_GOOGLE_SHEETS_ICI -->
-   
+  <p>Vos réponses ont été transmises avec succès. Merci pour votre participation à l'Audit Genre METE.</p>
+  <div class="score-result" id="finalScore">
+    <div class="big" id="finalNum">—</div>
+    <div class="label">points sur 90</div>
+    <div class="level" id="finalLevel">—</div>
   </div>
+  <button class="new-response-btn" onclick="newResponse()">Nouvelle réponse</button>
+</div>
+
+<!-- BARRE DE NAVIGATION FIXE EN BAS -->
+<div class="nav-bar" id="navBar">
+  <button class="nav-prev" id="btnPrev" onclick="prevSection()" title="Précédent" style="display:none;">‹</button>
+  <div class="section-dots" id="sectionDots"></div>
+  <button class="nav-next" id="btnNext" onclick="nextSection()">Suivant →</button>
+  <button class="nav-submit" id="btnSubmit" onclick="handleSubmit()" style="display:none;">
+    <span id="btnText">Soumettre</span>
+    <div class="spinner" id="spinner"></div>
+  </button>
 </div>
 
 <div class="footer">Audit Genre METE · Données confidentielles et anonymes</div>
 
 <script>
-// ============================================================
-// ✅ CONFIGURATION test et déploiement : remplace l'URL ci-dessous par celle de ton script Google Apps Script (voir README.md pour les instructions)
-// ============================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUoJ09OmhBUGtVMZjEQeFZpZS1Xbl0utwv04C8UrDP47mMaNw5c15P8aSzeDI3duiVaQ/exec';
-// ============================================================
+const SCRIPT_URL = '....';
 
 const SOUS_SERVICES = {
-  'Cabinet': [
-    'Inspection interne',
-    'Comité national CILSS',
-    'Comité national Changement Climatique',
-    'Commission nationale du Développement durable',
-    'Commission nationale de Gestion des Produits Chimiques',
-    'Cellule des statistiques et données',
-    "Cellule d'information et de communication"
-  ],
-  'Secrétariat Général': [
-    'Cellule des Affaires juridiques',
-    'Cellule de Passation des Marchés',
-    'Cellule Genre et Equité',
-    'Cellule informatique',
-    'Bureau du Courrier Commun',
-    'Bureau des Archives et de la Documentation'
-  ],
-  'Directions': [
-    'Direction des Eaux et Forêts, Chasses et de la Conservation des Sols (DEFCCS)',
-    'Direction des Parcs nationaux (DPN)',
-    'Direction de la Réglementation environnementale et du Contrôle (DiREC)',
-    'Direction du Changement climatique, de la Transition écologique et des Financements verts (DCCTEFV)',
-    'Direction de la Planification et de la Veille environnementale (DPVE)',
-    'Direction des Aires marines communautaires protégées (DAMCP)',
-    "Direction de l'Administration générale et de l'Equipement (DAGE)",
-    'Direction générale du Cadre de Vie (DGCV)'
-  ],
-  'Autres administrations': [
-    'Centre national de Formation des Techniciens des Eaux et Forêts, Chasses et Parcs nationaux (CNFTEFCPN)',
-    'Centre de Suivi écologique (CSE)',
-    'Centre d\'Education et de Formation environnementales (CEFE)',
-    'Agence sénégalaise de la Reforestation et de la Grande Muraille verte (ASERGMV)',
-    'Autorité Nationale de Biosécurité (ANB)',
-    'Société Nationale de Gestion Intégrée des Déchets (SONAGED)',
-    "Projet de Promotion de la Gestion intégrée et de l'Économie des Déchets Solides (PROMOGED)",
-    'Comité permanent Inter-États de Lutte contre la Sécheresse dans le Sahel (CONACILSS)'
-  ]
+  'Cabinet': ['Inspection interne','Comité national CILSS','Comité national Changement Climatique','Commission nationale du Développement durable','Commission nationale de Gestion des Produits Chimiques','Cellule des statistiques et données',"Cellule d'information et de communication"],
+  'Secrétariat Général': ['Cellule des Affaires juridiques','Cellule de Passation des Marchés','Cellule Genre et Equité','Cellule informatique','Bureau du Courrier Commun','Bureau des Archives et de la Documentation'],
+  'Directions': ['Direction des Eaux et Forêts, Chasses et de la Conservation des Sols (DEFCCS)','Direction des Parcs nationaux (DPN)','Direction de la Réglementation environnementale et du Contrôle (DiREC)','Direction du Changement climatique, de la Transition écologique et des Financements verts (DCCTEFV)','Direction de la Planification et de la Veille environnementale (DPVE)','Direction des Aires marines communautaires protégées (DAMCP)',"Direction de l'Administration générale et de l'Equipement (DAGE)",'Direction générale du Cadre de Vie (DGCV)'],
+  'Autres administrations': ['Centre national de Formation des Techniciens des Eaux et Forêts, Chasses et Parcs nationaux (CNFTEFCPN)','Centre de Suivi écologique (CSE)',"Centre d'Education et de Formation environnementales (CEFE)",'Agence sénégalaise de la Reforestation et de la Grande Muraille verte (ASERGMV)','Autorité Nationale de Biosécurité (ANB)','Société Nationale de Gestion Intégrée des Déchets (SONAGED)',"Projet de Promotion de la Gestion intégrée et de l'Économie des Déchets Solides (PROMOGED)",'Comité permanent Inter-États de Lutte contre la Sécheresse dans le Sahel (CONACILSS)']
 };
-
 const SOUS_SERVICE_LABELS = {
-  'Cabinet': 'Cellule / Comité / Commission',
-  'Secrétariat Général': 'Cellule / Bureau',
-  'Directions': 'Direction',
-  'Autres administrations': 'Structure / Centre / Agence'
+  'Cabinet':'Cellule / Comité / Commission',
+  'Secrétariat Général':'Cellule / Bureau',
+  'Directions':'Direction',
+  'Autres administrations':'Structure / Centre / Agence'
 };
 
 function updateSousService() {
@@ -338,11 +395,22 @@ const QUESTIONS = [
 const LABELS = ["Tout à fait d'accord", "Plutôt d'accord", "Plutôt pas d'accord", "Pas du tout d'accord"];
 const answers = new Array(30).fill(null);
 
+// Groupes de questions par section (indices 0-based)
+const SECTIONS = [
+  { label: 'Q 1–5',   from: 0,  to: 4  },
+  { label: 'Q 6–12',  from: 5,  to: 11 },
+  { label: 'Q 13–20', from: 12, to: 19 },
+  { label: 'Q 21–25', from: 20, to: 24 },
+  { label: 'Q 26–30', from: 25, to: 29 }
+];
+
+let currentSection = 0; // 0 = profil, 1–5 = groupes questions
+
 function getLevel(score) {
-  if (score <= 30) return {cls:'level-0', txt:'Faible sensibilité (0–30 pts)'};
-  if (score <= 60) return {cls:'level-1', txt:'Sensibilité modérée (31–60 pts)'};
-  if (score <= 80) return {cls:'level-2', txt:'Bonne sensibilité (61–80 pts)'};
-  return {cls:'level-3', txt:'Très bonne sensibilité (81–90 pts)'};
+  if (score <= 30) return {cls:'level-0', txt:'Faible sensibilité'};
+  if (score <= 60) return {cls:'level-1', txt:'Sensibilité modérée'};
+  if (score <= 80) return {cls:'level-2', txt:'Bonne sensibilité'};
+  return {cls:'level-3', txt:'Très bonne sensibilité'};
 }
 
 function updateScore() {
@@ -350,6 +418,78 @@ function updateScore() {
   const total = answers.reduce((s, a) => s + (a ?? 0), 0);
   document.getElementById('answeredCount').textContent = answered;
   document.getElementById('progressFill').style.width = Math.round(answered / 30 * 100) + '%';
+  document.getElementById('stepLabel').textContent = 'Étape ' + (currentSection + 1) + ' / 6';
+  updateDots();
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll('.dot');
+  dots.forEach((d, i) => {
+    d.classList.remove('active', 'done');
+    if (i === currentSection) d.classList.add('active');
+    else if (i < currentSection) d.classList.add('done');
+  });
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach((t, i) => {
+    t.classList.remove('active', 'done');
+    if (i === currentSection) t.classList.add('active');
+    else if (i < currentSection) t.classList.add('done');
+  });
+}
+
+function showSection(idx) {
+  currentSection = idx;
+  // Cacher toutes les sections
+  document.getElementById('sec0').classList.remove('active');
+  document.querySelectorAll('.sec-q').forEach(s => s.classList.remove('active'));
+  // Montrer la bonne
+  if (idx === 0) {
+    document.getElementById('sec0').classList.add('active');
+  } else {
+    const el = document.getElementById('secQ' + (idx - 1));
+    if (el) el.classList.add('active');
+  }
+  // Boutons nav
+  document.getElementById('btnPrev').style.display = idx > 0 ? 'flex' : 'none';
+  const isLast = idx === 5;
+  document.getElementById('btnNext').style.display = isLast ? 'none' : 'flex';
+  document.getElementById('btnSubmit').style.display = isLast ? 'flex' : 'none';
+  updateScore();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function validateSection0() {
+  const required = ['f_sexe', 'f_statut', 'f_service', 'f_zone'];
+  for (const id of required) {
+    if (!document.getElementById(id).value) return false;
+  }
+  return true;
+}
+
+function nextSection() {
+  if (currentSection === 0 && !validateSection0()) {
+    const err = document.getElementById('errSec0');
+    err.style.display = 'block';
+    err.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('errSec0').style.display = 'none';
+  if (currentSection < 5) showSection(currentSection + 1);
+}
+
+function prevSection() {
+  if (currentSection > 0) showSection(currentSection - 1);
+}
+
+function goToSection(idx) {
+  if (idx === 0) { showSection(0); return; }
+  if (currentSection === 0 && !validateSection0() && idx > 0) {
+    const err = document.getElementById('errSec0');
+    err.style.display = 'block';
+    err.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  showSection(idx);
 }
 
 function selectAnswer(qIdx, optIdx) {
@@ -362,23 +502,48 @@ function selectAnswer(qIdx, optIdx) {
 
 function buildQuestions() {
   const container = document.getElementById('questionsContainer');
-  QUESTIONS.forEach((q, qi) => {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.id = 'q' + qi;
-    // Points JAMAIS affichés au répondant — uniquement les libellés
-    const opts = LABELS.map((lbl, oi) => `
-      <div class="opt-btn" onclick="selectAnswer(${qi},${oi})">
-        <span class="opt-label">${lbl}</span>
-      </div>`).join('');
-    card.innerHTML = `
-      <div class="q-header">
-        <span class="q-num">Q${qi + 1}</span>
-        <span class="q-text">${q.t}</span>
-      </div>
-      <div class="q-options">${opts}</div>`;
-    container.appendChild(card);
+
+  SECTIONS.forEach((sec, si) => {
+    const secDiv = document.createElement('div');
+    secDiv.className = 'section-block sec-q';
+    secDiv.id = 'secQ' + si;
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = `<span class="section-title">${sec.label}</span><span class="section-count">${sec.to - sec.from + 1} questions</span>`;
+    secDiv.appendChild(header);
+
+    for (let qi = sec.from; qi <= sec.to; qi++) {
+      const q = QUESTIONS[qi];
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = 'q' + qi;
+      const opts = LABELS.map((lbl, oi) => `
+        <div class="opt-btn" onclick="selectAnswer(${qi},${oi})">
+          <div class="opt-dot"></div>
+          <span class="opt-label">${lbl}</span>
+        </div>`).join('');
+      card.innerHTML = `
+        <div class="q-header">
+          <span class="q-num">Q${qi + 1}</span>
+          <span class="q-text">${q.t}</span>
+        </div>
+        <div class="q-options">${opts}</div>`;
+      secDiv.appendChild(card);
+    }
+
+    container.appendChild(secDiv);
   });
+
+  // Construire les dots
+  const dotsEl = document.getElementById('sectionDots');
+  for (let i = 0; i < 6; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goToSection(i);
+    d.title = i === 0 ? 'Profil' : SECTIONS[i-1].label;
+    dotsEl.appendChild(d);
+  }
 }
 
 function collectData() {
@@ -398,10 +563,11 @@ function collectData() {
     sous_service: document.getElementById('f_sous_service').value,
     zone: document.getElementById('f_zone').value,
     anciennete: document.getElementById('f_anc').value,
+    email: document.getElementById('f_email').value,
     answers: [...answers],
     response_labels: responseLabels,
     score_total: total,
-    niveau: getLevel(total).txt.split(' (')[0],
+    niveau: getLevel(total).txt,
     score_max: 90
   };
 }
@@ -409,8 +575,7 @@ function collectData() {
 async function sendToSheets(data) {
   const params = new URLSearchParams({ data: JSON.stringify(data) });
   await fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
+    method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: params.toString()
   });
@@ -422,17 +587,26 @@ async function handleSubmit() {
 
   const unanswered = answers.filter(a => a === null).length;
   if (unanswered > 0) {
-    errEl.textContent = unanswered + ' question(s) sans réponse. Veuillez compléter toutes les questions avant de soumettre.';
+    // Trouver la section avec des questions non répondues
+    let firstUnansweredSection = -1;
+    for (let si = 0; si < SECTIONS.length; si++) {
+      const sec = SECTIONS[si];
+      for (let qi = sec.from; qi <= sec.to; qi++) {
+        if (answers[qi] === null) { firstUnansweredSection = si + 1; break; }
+      }
+      if (firstUnansweredSection >= 0) break;
+    }
+    errEl.textContent = unanswered + ' question(s) sans réponse. Vérifiez toutes les sections.';
     errEl.style.display = 'block';
-    document.querySelector('.q-card:not(.answered)')?.scrollIntoView({behavior:'smooth', block:'center'});
+    if (firstUnansweredSection >= 0) showSection(firstUnansweredSection);
     return;
   }
 
-  const btn = document.getElementById('submitBtn');
+  const btn = document.getElementById('btnSubmit');
   const btnText = document.getElementById('btnText');
   const spinner = document.getElementById('spinner');
   btn.disabled = true;
-  btnText.textContent = 'Envoi en cours…';
+  btnText.textContent = 'Envoi…';
   spinner.style.display = 'block';
 
   const data = collectData();
@@ -440,40 +614,40 @@ async function handleSubmit() {
   try {
     await sendToSheets(data);
     document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('navBar').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
+    document.getElementById('finalNum').textContent = data.score_total;
+    document.getElementById('finalLevel').textContent = data.niveau;
     window.scrollTo({top:0, behavior:'smooth'});
   } catch (err) {
-    errEl.textContent = "Impossible de joindre le serveur. Vérifiez votre connexion internet et que l'URL Apps Script est correcte dans index.html.";
+    errEl.textContent = "Impossible de joindre le serveur. Vérifiez votre connexion et que l'URL Apps Script est correcte.";
     errEl.style.display = 'block';
   } finally {
     btn.disabled = false;
-    btnText.textContent = 'Soumettre mes réponses';
+    btnText.textContent = 'Soumettre';
     spinner.style.display = 'none';
   }
 }
 
 function newResponse() {
-  resetForm();
-  document.getElementById('successScreen').style.display = 'none';
-  document.getElementById('mainForm').style.display = 'block';
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function resetForm() {
   answers.fill(null);
   document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
   document.querySelectorAll('.q-card').forEach(c => c.classList.remove('answered'));
   ['f_sexe','f_age','f_statut','f_service','f_zone','f_anc'].forEach(id => {
     document.getElementById(id).selectedIndex = 0;
   });
+  document.getElementById('f_email').value = '';
   document.getElementById('f_sous_service').innerHTML = '<option value="">— Sélectionner —</option>';
   document.getElementById('subservice-group').classList.remove('visible');
   document.getElementById('msgError').style.display = 'none';
-  updateScore();
+  document.getElementById('successScreen').style.display = 'none';
+  document.getElementById('mainForm').style.display = 'block';
+  document.getElementById('navBar').style.display = 'flex';
+  showSection(0);
 }
 
 buildQuestions();
-updateScore();
+showSection(0);
 </script>
 </body>
 </html>
